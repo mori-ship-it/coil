@@ -1,65 +1,160 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { mockSalons } from "@/data/salons";
+import { AREA_LABELS, JOB_TYPE_LABELS } from "@/types/salon";
+import type { Area, JobType } from "@/types/salon";
+
+const pickupSalons = mockSalons.filter((s) => s.spotsAvailable > 0).slice(0, 6);
 
 export default function Home() {
+  const router = useRouter();
+  const [area, setArea] = useState<Area | "">("");
+  const [jobType, setJobType] = useState<JobType | "">("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (area) params.set("area", area);
+    if (jobType) params.set("jobType", jobType);
+    router.push(`/salons?${params.toString()}`);
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="min-h-screen">
+      {/* Hero - compact */}
+      <section className="relative h-[50vh] min-h-[400px] w-full sm:h-[55vh]">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/hero.jpg"
+          alt=""
+          fill
+          className="object-cover"
           priority
+          sizes="100vw"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-[#3A3028]/80 via-[#3A3028]/40 to-[#3A3028]/20"
+          aria-hidden
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4">
+          <h1 className="text-4xl font-bold tracking-wide text-white sm:text-5xl md:text-6xl">
+            COIL
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-base text-white/95 sm:text-lg">
+            つながりは、現場から生まれる。
           </p>
+
+          <form onSubmit={handleSearch} className="mt-8 w-full max-w-2xl">
+            <div className="flex flex-col gap-3 rounded-lg bg-white/95 p-4 sm:flex-row sm:gap-4">
+              <select
+                value={area}
+                onChange={(e) => setArea(e.target.value as Area | "")}
+                className="flex-1 rounded-md border border-[#3A3028]/20 bg-white px-4 py-3 text-sm text-[#3A3028]"
+                aria-label="エリア"
+              >
+                <option value="">エリア</option>
+                {(Object.keys(AREA_LABELS) as Area[]).map((key) => (
+                  <option key={key} value={key} className="text-[#3A3028]">
+                    {AREA_LABELS[key]}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={jobType}
+                onChange={(e) => setJobType(e.target.value as JobType | "")}
+                className="flex-1 rounded-md border border-[#3A3028]/20 bg-white px-4 py-3 text-sm text-[#3A3028]"
+                aria-label="職種"
+              >
+                <option value="">職種</option>
+                {(Object.keys(JOB_TYPE_LABELS) as JobType[]).map((key) => (
+                  <option key={key} value={key} className="text-[#3A3028]">
+                    {JOB_TYPE_LABELS[key]}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="submit"
+                className="rounded-lg bg-[#5A6E4E] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#4A5E3E] min-h-[44px]"
+              >
+                検索
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Pickup Salons - horizontal cards */}
+      <section className="px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-[#3A3028] sm:text-xl">
+              ピックアップサロン
+            </h2>
+            <Link
+              href="/salon"
+              className="text-sm font-medium text-[#5A6E4E] hover:underline"
+            >
+              サロン掲載はこちら
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {pickupSalons.map((salon) => (
+              <Link
+                key={salon.id}
+                href={`/salons/${salon.id}`}
+                className="flex overflow-hidden rounded-lg bg-white shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28">
+                  <Image
+                    src={salon.photos[0]}
+                    alt={salon.name}
+                    fill
+                    className="object-cover"
+                    sizes="112px"
+                  />
+                  <span className="absolute right-1 top-1 rounded bg-[#5A6E4E] px-1.5 py-0.5 text-[10px] font-medium text-white">
+                    PR
+                  </span>
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col justify-center p-3 sm:p-4">
+                  <h3 className="truncate font-bold text-[#3A3028] text-sm sm:text-base">
+                    {salon.name}
+                  </h3>
+                  <p className="mt-0.5 text-xs text-[#3A3028]/70">
+                    {AREA_LABELS[salon.area]}
+                  </p>
+                  <p className="mt-1 text-xs text-[#3A3028]/70">
+                    {salon.jobTypes.map((jt) => JOB_TYPE_LABELS[jt]).join("・")}
+                  </p>
+                  {salon.spotsAvailable > 0 && (
+                    <span className="mt-2 inline-flex w-fit rounded bg-[#5A6E4E] px-2 py-0.5 text-xs font-medium text-white">
+                      スポット可 採用枠{salon.spotsAvailable}名
+                    </span>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-[#3A3028]/10 bg-white px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-xl text-center">
+          <p className="text-sm text-[#3A3028]/80">
+            プロフィールを登録して、理想のサロンからのオファーをお待ちください
+          </p>
+          <Link
+            href="/register/beautician"
+            className="mt-4 inline-flex items-center justify-center rounded-lg bg-[#5A6E4E] px-8 py-3.5 font-semibold text-white transition-colors hover:bg-[#4A5E3E] min-h-[44px]"
+          >
+            美容師登録をする
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
