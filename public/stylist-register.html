@@ -22,44 +22,24 @@
     .site-header {
       position: sticky; top: 0; z-index: 50; background: #fff;
     }
-    .header-top-bar {
-      display: flex; justify-content: flex-end; gap: 16px;
-      background: #f3f4f6; padding: 2px 16px; font-size: 10px; color: #9ca3af;
-    }
-    .header-top-bar a { color: #9ca3af; text-decoration: none; }
-    .header-top-bar a:hover { color: #4b5563; }
-    .header-top-bar .divider { width: 1px; background: #e5e7eb; }
     .header-main {
       max-width: 1120px; margin: 0 auto; display: flex; align-items: center;
-      justify-content: space-between; padding: 8px 16px;
+      justify-content: space-between; padding: 14px 16px;
     }
     .header-logo { font-weight: 700; font-size: 18px; letter-spacing: 0.2em; color: #3A3028; text-decoration: none; }
-    .header-nav { display: none; align-items: center; gap: 24px; margin-left: auto; margin-right: 24px; }
-    .header-nav a { display: flex; align-items: center; gap: 4px; color: rgba(58,48,40,0.7); text-decoration: none; font-size: 12px; }
+    .header-nav { display: none; align-items: center; gap: 28px; }
+    .header-nav a { color: rgba(58,48,40,0.7); text-decoration: none; font-size: 13px; font-weight: 400; }
     .header-nav a:hover { color: #3A3028; }
-    .header-cta { display: none; }
-    .header-cta a {
-      display: inline-block; background: #5A6E4E; color: #fff; padding: 8px 32px;
-      border-radius: 8px; font-size: 12px; font-weight: 500; text-decoration: none;
-    }
-    .header-cta a:hover { background: #4A5E3E; }
     .header-menu-btn {
       background: none; border: none; font-size: 14px; cursor: pointer; color: #3A3028;
     }
-    .header-categories {
-      border-top: 1px solid #f3f4f6; text-align: center; padding: 8px 16px; font-size: 14px; color: rgba(58,48,40,0.7);
-    }
-    .header-categories a { color: rgba(58,48,40,0.7); text-decoration: none; }
-    .header-categories a:hover { color: #3A3028; }
-    .header-categories .sep { margin: 0 16px; color: #d1d5db; }
     .mobile-menu {
-      display: none; border-bottom: 1px solid #e5e7eb; background: #fff; padding: 16px;
+      display: none; background: #fff; padding: 16px;
     }
     .mobile-menu.open { display: flex; flex-direction: column; gap: 16px; }
     .mobile-menu a { color: #3A3028; text-decoration: none; font-size: 14px; }
     @media (min-width: 768px) {
       .header-nav { display: flex; }
-      .header-cta { display: block; }
       .header-menu-btn { display: none; }
     }
 
@@ -181,28 +161,28 @@
 
     /* ===== Footer ===== */
     .site-footer {
-      margin-top: auto; border-top: 1px solid rgba(58,48,40,0.05); background: #F7F3EE;
+      margin-top: auto; border-top: 1px solid rgba(58,48,40,0.05); background: #faf9f6;
     }
     .footer-inner {
       max-width: 1120px; margin: 0 auto; padding: 32px 16px;
     }
     .footer-top { display: flex; flex-direction: column; gap: 24px; }
     .footer-logo {
-      font-size: 18px; font-weight: 200; letter-spacing: 0.2em; color: #3A3028; text-decoration: none;
+      font-size: 18px; font-weight: 700; letter-spacing: 0.2em; color: #3A3028; text-decoration: none;
     }
-    .footer-tagline { margin-top: 16px; font-size: 14px; font-weight: 300; color: rgba(58,48,40,0.6); }
-    .footer-links { display: flex; flex-direction: column; gap: 24px; }
+    .footer-tagline { margin-top: 12px; font-size: 14px; font-weight: 300; color: rgba(58,48,40,0.6); }
+    .footer-links { display: flex; flex-direction: column; gap: 20px; }
     .footer-links a {
-      font-size: 14px; font-weight: 200; letter-spacing: 0.15em; color: #3A3028; text-decoration: none;
+      font-size: 13px; font-weight: 400; color: rgba(58,48,40,0.7); text-decoration: none;
     }
-    .footer-links a:hover { color: #7A8C6E; }
+    .footer-links a:hover { color: #3A3028; }
     .footer-bottom {
-      margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(58,48,40,0.05);
+      margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(58,48,40,0.08);
       font-size: 12px; font-weight: 300; color: rgba(58,48,40,0.4);
     }
     @media (min-width: 640px) {
       .footer-top { flex-direction: row; align-items: flex-end; justify-content: space-between; }
-      .footer-links { flex-direction: row; gap: 48px; }
+      .footer-links { flex-direction: row; gap: 32px; }
     }
 
     /* ===== Toast ===== */
@@ -233,43 +213,19 @@
 
 <!-- ===== Header ===== -->
 <header class="site-header">
-  <div class="header-top-bar">
-    <a href="/salon">求人掲載について</a>
-    <div class="divider"></div>
-    <a href="/salon/login">企業ログイン</a>
-  </div>
   <div class="header-main">
     <a href="/" class="header-logo">COIL</a>
     <nav class="header-nav">
-      <a href="/search">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
-        <span>詳細検索</span>
-      </a>
-      <a href="/history">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>
-        <span>閲覧履歴</span>
-      </a>
-      <a href="/favorites">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>お気に入り</span>
-      </a>
+      <a href="/salons">サロン検索</a>
+      <a href="/register/beautician">美容師登録</a>
+      <a href="/salon">サロン掲載はこちら</a>
     </nav>
-    <div class="header-cta"><a href="/signup">会員登録・ログイン</a></div>
     <button class="header-menu-btn" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">Menu</button>
   </div>
   <div class="mobile-menu">
-    <a href="/search">詳細検索</a>
-    <a href="/history">閲覧履歴</a>
-    <a href="/favorites">お気に入り</a>
-    <a href="/signup">会員登録・ログイン</a>
-  </div>
-  <div class="header-categories">
-    <a href="/salons?job=stylist">美容師</a><span class="sep">|</span>
-    <a href="/salons?job=nail">ネイリスト</a><span class="sep">|</span>
-    <a href="/salons?job=eyelash">アイリスト</a><span class="sep">|</span>
-    <a href="/salons?job=esthetician">エステ</a><span class="sep">|</span>
-    <a href="/salons?job=massage">セラピスト</a><span class="sep">|</span>
-    <a href="/salons?job=other">マッサージ</a>
+    <a href="/salons">サロン検索</a>
+    <a href="/register/beautician">美容師登録</a>
+    <a href="/salon">サロン掲載はこちら</a>
   </div>
 </header>
 
@@ -564,9 +520,10 @@
       <div class="footer-links">
         <a href="/salons">サロン検索</a>
         <a href="/register/beautician">美容師登録</a>
+        <a href="/salon">サロン掲載</a>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2025 COIL</div>
+    <div class="footer-bottom">&copy; 2026 COIL</div>
   </div>
 </footer>
 
